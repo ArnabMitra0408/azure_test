@@ -1,5 +1,6 @@
 import os
-
+import logging
+logger = logging.getLogger()
 
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
@@ -8,6 +9,9 @@ app = Flask(__name__)
 @app.route('/')
 def index():
    print('Request for index page received')
+   logger.setLevel(logging.WARNING)
+   logger.warning("Its a Warning that index page is received")
+
    return render_template('index.html')
 
 @app.route('/favicon.ico')
@@ -21,9 +25,14 @@ def hello():
 
    if name:
        print('Request for hello page received with name=%s' % name)
+       logger.setLevel(logging.ERROR)
+       logger.error("It is a error saying message is received")
+    
        return render_template('hello.html', name = name)
    else:
        print('Request for hello page received with no name or blank name -- redirecting')
+       logger.setLevel(logging.CRITICAL)
+       logger.critical("It is a critical message saying no name is received")
        return redirect(url_for('index'))
 
 
