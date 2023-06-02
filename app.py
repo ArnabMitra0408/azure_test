@@ -1,10 +1,10 @@
 import os
 import logging
-logger = logging.getLogger()
 
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
 app = Flask(__name__)
+logger = logging.getLogger(__name__)
 
 @app.route('/')
 def index():
